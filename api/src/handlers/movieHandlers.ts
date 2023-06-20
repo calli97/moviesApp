@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import Movie from "../entity/Movie";
 import NotFoundError from "../helpers/errors/NotFoundError";
 import AlreadyExistError from "../helpers/errors/AlreadyExistError";
+import { csvParser } from "../helpers/parser/csvParser";
 
 export const postMovie = async (
     req: Request,
@@ -66,6 +67,9 @@ export const postMoviesFromFile = async (
     next: NextFunction
 ) => {
     try {
+        const csvContent = req.file?.buffer;
+        const csvText = csvContent?.toString("utf-8") ?? "";
+        csvParser(csvText);
         res.status(200).json({ msg: "aca irian archivos" });
     } catch (error) {
         next(error);

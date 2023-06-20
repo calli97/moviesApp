@@ -4,8 +4,17 @@ const Create = () => {
     const [inputData, setInputData] = useState({
         file: "",
     });
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault();
+        const formData = new FormData();
+        console.log(inputData.file);
+        formData.append("csvFile", inputData.file);
+        const response = await fetch("/api/movies/csv", {
+            method: "POST",
+            body: formData,
+        });
+        const data = await response.json();
+        console.log(data);
     };
 
     const fileChangeHandler = (e) => {
