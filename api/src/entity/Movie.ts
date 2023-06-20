@@ -8,7 +8,7 @@ import {
 } from "typeorm";
 
 @Entity({ name: "movies" })
-class Movies extends BaseEntity {
+class Movie extends BaseEntity {
     @PrimaryGeneratedColumn({ name: "movie_id" })
     movieId: number;
 
@@ -31,4 +31,4 @@ class Movies extends BaseEntity {
     updatedAt: Date;
 }
 
-export default Movies;
+export default Movie;
