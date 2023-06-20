@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import MovieTable from "../Components/MovieTable";
 
 const Movies = () => {
-    return <div>Movies</div>;
+    const [movies, setMovies] = useState([]);
+    useEffect(() => {
+        getMovies();
+    }, []);
+    const getMovies = async () => {
+        const response = await fetch("/api/movies");
+        const data = await response.json();
+        setMovies(data);
+    };
+    return (
+        <div>
+            Movies
+            <MovieTable movies={movies} />
+        </div>
+    );
 };
 
 export default Movies;

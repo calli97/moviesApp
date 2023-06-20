@@ -4,10 +4,12 @@ import Landing from "./Pages/Landing";
 import Movies from "./Pages/Movies";
 import Detail from "./Pages/Detail";
 import Create from "./Pages/Create";
+import Navbar from "./Components/Navbar";
 
 function App() {
     return (
         <div>
+            <Navbar />
             <Routes>
                 <Route path="/" element={<Landing />} />
                 <Route path="/movies" element={<Movies />} />
