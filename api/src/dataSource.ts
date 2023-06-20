@@ -1,6 +1,7 @@
 import { DataSource } from "typeorm";
 import dotenv from "dotenv";
 import User from "./entity/User";
+import Movies from "./entity/Movies";
 dotenv.config();
 
 const { DB_HOST, DB_USER, DB_PASSWORD, DB_PORT, DB_NAME } = process.env;
@@ -14,7 +15,7 @@ export const AppDataSource = new DataSource({
     database: DB_NAME,
     synchronize: true,
     logging: true,
-    entities: [User],
+    entities: [User, Movies],
     subscribers: [],
     migrations: [],
 });

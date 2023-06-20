@@ -9,8 +9,8 @@ import {
 
 @Entity({ name: "users" })
 class User extends BaseEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn({ name: "user_id" })
+    userId: number;
 
     @Column({ name: "first_name" })
     firstName: string;
