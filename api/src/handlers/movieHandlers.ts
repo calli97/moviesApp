@@ -59,3 +59,15 @@ export const getMovie = async (
         next(error);
     }
 };
+
+export const postMoviesFromFile = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        res.status(200).json({ msg: "aca irian archivos" });
+    } catch (error) {
+        next(error);
+    }
+};
