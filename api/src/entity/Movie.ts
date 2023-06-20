@@ -4,10 +4,12 @@ import {
     CreateDateColumn,
     Entity,
     PrimaryGeneratedColumn,
+    Unique,
     UpdateDateColumn,
 } from "typeorm";
 
 @Entity({ name: "movies" })
+@Unique(["title"])
 class Movie extends BaseEntity {
     @PrimaryGeneratedColumn({ name: "movie_id" })
     movieId: number;
@@ -19,7 +21,7 @@ class Movie extends BaseEntity {
     description: string;
 
     @Column({ name: "release_date" })
-    releaseDate: string;
+    releaseDate: number;
 
     @Column({ name: "user_id" })
     userId: string;
