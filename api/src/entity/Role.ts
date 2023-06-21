@@ -8,15 +8,15 @@ import {
 import User from "./User";
 
 @Entity({ name: "roles" })
-class Rol extends BaseEntity {
-    @PrimaryGeneratedColumn({ name: "rol_id" })
-    rolId: number;
+class Role extends BaseEntity {
+    @PrimaryGeneratedColumn({ name: "role_id" })
+    roleId: number;
 
     @Column()
     name: string;
 
-    @OneToMany(() => User, (user) => user.rol)
+    @OneToMany(() => User, (user) => user.role)
     user: User[];
 }
 
-export default Rol;
+export default Role;

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import jwt_decode from "jwt-decode";
 
 const SignInForm = () => {
     const [formData, setFormData] = useState({
@@ -21,7 +22,10 @@ const SignInForm = () => {
             body: JSON.stringify(formData),
         });
         const json = await response.json();
-        console.log(json);
+        if (response.status === 200) {
+            localStorage.setItem("token", json.token);
+            console.log(jwt_decode(json.token));
+        }
     };
 
     return (

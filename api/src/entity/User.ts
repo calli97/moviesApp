@@ -8,7 +8,7 @@ import {
     Unique,
     UpdateDateColumn,
 } from "typeorm";
-import Rol from "./Rol";
+import Role from "./Role";
 
 @Entity({ name: "users" })
 @Unique(["email"])
@@ -34,8 +34,8 @@ class User extends BaseEntity {
     @UpdateDateColumn({ name: "updated_at" })
     updatedAt: Date;
 
-    @ManyToOne(() => Rol, (rol) => rol.user)
-    rol: Rol;
+    @ManyToOne(() => Role, (role) => role.user)
+    role: Role;
 }
 
 export default User;

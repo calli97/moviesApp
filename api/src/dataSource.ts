@@ -2,7 +2,7 @@ import { DataSource } from "typeorm";
 import dotenv from "dotenv";
 import User from "./entity/User";
 import Movie from "./entity/Movie";
-import Rol from "./entity/Rol";
+import Rol from "./entity/Role";
 dotenv.config();
 
 const { DB_HOST, DB_USER, DB_PASSWORD, DB_PORT, DB_NAME } = process.env;
