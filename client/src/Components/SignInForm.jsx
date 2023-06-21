@@ -10,10 +10,18 @@ const SignInForm = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData);
         // Aquí puedes realizar acciones adicionales, como enviar los datos al servidor
+        const response = await fetch("/api/auth/signin", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+        });
+        const json = await response.json();
+        console.log(json);
     };
 
     return (

@@ -1,7 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import User from "../entity/User";
-import { encryptPassword } from "../helpers/crypt";
+import { encryptPassword, verifyPassword } from "../helpers/crypt";
 import EmailAlreadyRegisterError from "../helpers/errors/EmailAlrealyRegisterError";
+import NotRegisteredUserError from "../helpers/errors/NotRegisteredUserError";
+import InvalidPasswordError from "../helpers/errors/InvalidPasswordError";
 
 export const signUp = async (
     req: Request,
@@ -31,8 +33,25 @@ export const signUp = async (
     }
 };
 
-export const signIn = (req: Request, res: Response, next: NextFunction) => {
+export const signIn = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
     try {
+        const { email, password } = req.body;
+
+        const user = await User.findOneBy({
+            email: email,
+        });
+        if (user === null) {
+            throw new NotRegisteredUserError();
+        }
+        if ((await verifyPassword(user.password, password)) === false) {
+            throw new InvalidPasswordError();
+        }
+
+        res.json(user);
     } catch (error) {
         next(error);
     }
