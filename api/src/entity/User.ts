@@ -3,11 +3,15 @@ import {
     Column,
     CreateDateColumn,
     Entity,
+    ManyToOne,
     PrimaryGeneratedColumn,
+    Unique,
     UpdateDateColumn,
 } from "typeorm";
+import Rol from "./Rol";
 
 @Entity({ name: "users" })
+@Unique(["email"])
 class User extends BaseEntity {
     @PrimaryGeneratedColumn({ name: "user_id" })
     userId: number;
@@ -29,6 +33,9 @@ class User extends BaseEntity {
 
     @UpdateDateColumn({ name: "updated_at" })
     updatedAt: Date;
+
+    @ManyToOne(() => Rol, (rol) => rol.user)
+    rol: Rol;
 }
 
 export default User;
