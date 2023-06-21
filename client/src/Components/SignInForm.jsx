@@ -18,6 +18,7 @@ const SignInForm = () => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                authorization: localStorage.getItem("token"),
             },
             body: JSON.stringify(formData),
         });
@@ -26,6 +27,7 @@ const SignInForm = () => {
             localStorage.setItem("token", json.token);
             console.log(jwt_decode(json.token));
         }
+        console.log(json);
     };
 
     return (
