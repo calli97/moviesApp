@@ -12,24 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const app_1 = __importDefault(require("./src/app"));
-const dotenv_1 = __importDefault(require("dotenv"));
-const dataSource_1 = require("./src/dataSource");
-const roleControllers_1 = require("./src/controllers/roleControllers");
-dotenv_1.default.config();
-const { PORT } = process.env;
-function main() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            yield dataSource_1.AppDataSource.initialize();
-            console.log("Database Connected");
-            app_1.default.listen(PORT);
-            console.log(`Server running on port: ${PORT}`);
-            yield (0, roleControllers_1.initializeRoles)();
-        }
-        catch (error) {
-            console.error(error);
-        }
-    });
-}
-main();
+exports.verifyPassword = exports.encryptPassword = void 0;
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
+const encryptPassword = (password) => __awaiter(void 0, void 0, void 0, function* () {
+    const salt = yield bcryptjs_1.default.genSalt(10);
+    return yield bcryptjs_1.default.hash(password, salt);
+});
+exports.encryptPassword = encryptPassword;
+const verifyPassword = (storesPassword, password) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield bcryptjs_1.default.compare(password, storesPassword);
+});
+exports.verifyPassword = verifyPassword;
