@@ -8,6 +8,7 @@ import {
     getAllMovies,
     getCountMovies,
     getMovieById,
+    getMoviesByName,
     updateMovieById,
 } from "../controllers/movieControllers";
 
@@ -30,17 +31,24 @@ export const getMovies = async (
     res: Response,
     next: NextFunction
 ) => {
-    let { page } = req.query;
+    let { page, title } = req.query;
     let pageIndex: number;
+    let searchedTitle: string | null;
     if (page === undefined || page === null) {
         pageIndex = 1;
     } else {
         pageIndex = parseInt(<any>page);
     }
+    if (title === undefined || title === null) {
+        searchedTitle = null;
+    } else {
+        searchedTitle = title.toString();
+    }
     try {
-        const movies = await getCountMovies(pageIndex);
-        // const pageMovies = await getCountMovies(page);
-        // console.log(pageMovies);
+        const movies =
+            searchedTitle === null
+                ? await getCountMovies(pageIndex)
+                : await getMoviesByName(pageIndex, searchedTitle);
 
         res.status(200).json(movies);
     } catch (error) {

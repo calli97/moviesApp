@@ -1,6 +1,7 @@
 import Movie from "../entity/Movie";
 import AlreadyExistError from "../helpers/errors/AlreadyExistError";
 import NotFoundError from "../helpers/errors/NotFoundError";
+import { Like } from "typeorm";
 
 export const createMovie = async (
     title: string,
@@ -28,7 +29,34 @@ export const getCountMovies = async (page: number) => {
         take: perPage,
         skip,
     });
+
     const total = await Movie.count();
+
+    return {
+        movies,
+        pagination: {
+            total: total,
+            pages: Math.ceil(total / perPage),
+        },
+    };
+};
+
+export const getMoviesByName = async (page: number, title: string) => {
+    const perPage = 10;
+    const skip = perPage * page - perPage;
+    const movies = await Movie.find({
+        where: {
+            title: Like(`%${title}%`),
+        },
+        take: perPage,
+        skip,
+    });
+
+    const total = await Movie.count({
+        where: {
+            title: Like(`%${title}%`),
+        },
+    });
 
     return {
         movies,
