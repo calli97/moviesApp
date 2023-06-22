@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const MovieForm = ({ handleCreateMovie }) => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         title: "",
         releaseDate: "",
@@ -21,9 +23,9 @@ const MovieForm = ({ handleCreateMovie }) => {
             body: JSON.stringify(formData),
         });
         const data = await response.json();
-        console.log(data);
-        // Restablecer los valores del formulario después de enviar
-        setFormData({ title: "", releaseDate: "", description: "" });
+        if (response.status === 200) {
+            navigate("/movies");
+        }
     };
 
     return (

@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { checkLogInUser } from "./redux/features/userSlice/userSlice";
 import Profile from "./Pages/Profile";
 import Auth from "./Pages/Auth";
+import MovieEdit from "./Pages/MovieEdit";
 
 function App() {
     const dispatch = useDispatch();
@@ -41,6 +42,7 @@ function App() {
                 />
                 <Route path="/movies" element={<Movies />} />
                 <Route path="/detail/:movieid" element={<Detail />} />
+                <Route path="/edit/:movieid" element={<MovieEdit />} />
                 <Route path="/create" element={<Create />} />
             </Routes>
         </div>

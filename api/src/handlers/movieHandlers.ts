@@ -6,6 +6,7 @@ import {
     createMovie,
     deleteMovieById,
     getAllMovies,
+    getCountMovies,
     getMovieById,
     updateMovieById,
 } from "../controllers/movieControllers";
@@ -29,8 +30,18 @@ export const getMovies = async (
     res: Response,
     next: NextFunction
 ) => {
+    let { page } = req.query;
+    let pageIndex: number;
+    if (page === undefined || page === null) {
+        pageIndex = 1;
+    } else {
+        pageIndex = parseInt(<any>page);
+    }
     try {
-        const movies = await getAllMovies();
+        const movies = await getCountMovies(pageIndex);
+        // const pageMovies = await getCountMovies(page);
+        // console.log(pageMovies);
+
         res.status(200).json(movies);
     } catch (error) {
         next(error);
@@ -45,7 +56,7 @@ export const getMovie = async (
     const { movieid } = req.params;
     const id = parseInt(movieid);
     try {
-        const movie = getMovieById(id);
+        const movie = await getMovieById(id);
         res.status(200).json(movie);
     } catch (error) {
         next(error);

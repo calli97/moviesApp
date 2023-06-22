@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const MovieFileForm = () => {
+    const navigate = useNavigate();
     const [inputData, setInputData] = useState({
         file: "",
     });
@@ -14,7 +16,9 @@ const MovieFileForm = () => {
             body: formData,
         });
         const data = await response.json();
-        console.log(data);
+        if (response.status === 200) {
+            navigate("/movies");
+        }
     };
 
     const fileChangeHandler = (e) => {

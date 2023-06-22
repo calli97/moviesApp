@@ -4,6 +4,8 @@ import {
     getMovie,
     postMovie,
     postMoviesFromFile,
+    updateMovie,
+    deleteMovie,
 } from "../../handlers/movieHandlers";
 
 import multer from "multer";
@@ -17,5 +19,7 @@ router.get("/", getMovies);
 router.get("/:movieid", getMovie);
 router.post("/", postMovie);
 router.post("/csv", upload.single("csvFile"), postMoviesFromFile);
+router.put("/:movieid", updateMovie);
+router.delete("/:movieid", deleteMovie);
 
 export default router;
