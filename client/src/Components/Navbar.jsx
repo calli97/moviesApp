@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
+    const user = useSelector((state) => state.user);
+
     return (
         <nav className="bg-gray-800">
             <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -30,6 +33,21 @@ const Navbar = () => {
                         >
                             Create
                         </NavLink>
+                        {user.signIn ? (
+                            <NavLink
+                                to="/profile"
+                                className="text-gray-300 hover:bg-grey-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium poin"
+                            >
+                                Profile
+                            </NavLink>
+                        ) : (
+                            <NavLink
+                                to="/auth"
+                                className="text-gray-300 hover:bg-grey-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium poin"
+                            >
+                                Sign in/Sign Up
+                            </NavLink>
+                        )}
                     </div>
                 </div>
             </div>

@@ -1,6 +1,11 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { signIn } from "../redux/features/userSlice/userSlice";
 
 const SignupForm = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
@@ -23,6 +28,11 @@ const SignupForm = () => {
             body: JSON.stringify(formData),
         });
         const json = await response.json();
+        if (response.status === 200) {
+            localStorage.setItem("token", json.token);
+            dispatch(signIn(json.token));
+            navigate("/profile");
+        }
         console.log(json);
     };
 
@@ -33,7 +43,7 @@ const SignupForm = () => {
                 <div>
                     <label
                         htmlFor="firstName"
-                        className="block text-sm font-medium text-gray-700"
+                        className="block text-sm font-medium text-gray-400"
                     >
                         First Name
                     </label>
@@ -49,7 +59,7 @@ const SignupForm = () => {
                 <div>
                     <label
                         htmlFor="lastName"
-                        className="block text-sm font-medium text-gray-700"
+                        className="block text-sm font-medium text-gray-400"
                     >
                         Last Name
                     </label>
@@ -62,26 +72,11 @@ const SignupForm = () => {
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     />
                 </div>
-                <div>
-                    <label
-                        htmlFor="password"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Password
-                    </label>
-                    <input
-                        type="password"
-                        name="password"
-                        id="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                    />
-                </div>
+
                 <div>
                     <label
                         htmlFor="email"
-                        className="block text-sm font-medium text-gray-700"
+                        className="block text-sm font-medium text-gray-400"
                     >
                         Email
                     </label>
@@ -90,6 +85,22 @@ const SignupForm = () => {
                         name="email"
                         id="email"
                         value={formData.email}
+                        onChange={handleChange}
+                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    />
+                </div>
+                <div>
+                    <label
+                        htmlFor="password"
+                        className="block text-sm font-medium text-gray-400"
+                    >
+                        Password
+                    </label>
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        value={formData.password}
                         onChange={handleChange}
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     />

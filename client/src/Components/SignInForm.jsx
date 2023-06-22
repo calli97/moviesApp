@@ -1,7 +1,12 @@
 import React, { useState } from "react";
-import jwt_decode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { signIn } from "../redux/features/userSlice/userSlice";
 
 const SignInForm = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const [formData, setFormData] = useState({
         password: "",
         email: "",
@@ -25,7 +30,8 @@ const SignInForm = () => {
         const json = await response.json();
         if (response.status === 200) {
             localStorage.setItem("token", json.token);
-            console.log(jwt_decode(json.token));
+            dispatch(signIn(json.token));
+            navigate("/profile");
         }
         console.log(json);
     };
@@ -36,24 +42,8 @@ const SignInForm = () => {
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                     <label
-                        htmlFor="passwordSignInInput"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Password
-                    </label>
-                    <input
-                        type="password"
-                        name="password"
-                        id="passwordSignInInput"
-                        value={formData.password}
-                        onChange={handleChange}
-                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                    />
-                </div>
-                <div>
-                    <label
                         htmlFor="emailSignInInput"
-                        className="block text-sm font-medium text-gray-700"
+                        className="block text-sm font-medium text-gray-400"
                     >
                         Email
                     </label>
@@ -62,6 +52,22 @@ const SignInForm = () => {
                         name="email"
                         id="emailSignInInput"
                         value={formData.email}
+                        onChange={handleChange}
+                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    />
+                </div>
+                <div>
+                    <label
+                        htmlFor="passwordSignInInput"
+                        className="block text-sm font-medium text-gray-400"
+                    >
+                        Password
+                    </label>
+                    <input
+                        type="password"
+                        name="password"
+                        id="passwordSignInInput"
+                        value={formData.password}
                         onChange={handleChange}
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     />

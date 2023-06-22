@@ -36,7 +36,21 @@ export const signUp = async (
             newUser.role = userRole;
             await newUser.save();
         }
-        res.json(newUser);
+        const token = jwt.sign(
+            {
+                id: newUser.userId,
+                firstName: newUser.firstName,
+                lastName: newUser.lastName,
+                email: newUser.email,
+                role: newUser.role,
+            },
+            "secret",
+            {
+                expiresIn: 86400, //24Hours
+            }
+        );
+
+        res.json({ token });
     } catch (error) {
         next(error);
     }

@@ -23,9 +23,6 @@ class Movie extends BaseEntity {
     @Column({ name: "release_date" })
     releaseDate: number;
 
-    @Column({ name: "user_id" })
-    userId: string;
-
     @CreateDateColumn({ name: "created_at" })
     createdAt: Date;
 

@@ -50,7 +50,15 @@ export const userSlice = createSlice({
             }
         },
         signOut: (state, action) => {
-            state = initialState;
+            state.signIn = false;
+            state.user = {
+                firstName: "",
+                lastName: "",
+                email: "",
+                token: "",
+                id: null,
+                role: "",
+            };
         },
     },
     extraReducers: {},

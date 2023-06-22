@@ -1,15 +1,7 @@
 import React from "react";
-import SignupForm from "../Components/SignUpForm";
-import SignInForm from "../Components/SignInForm";
 
 const Landing = () => {
-    return (
-        <div className="bg-slate-900">
-            Landing
-            <SignupForm />
-            <SignInForm />
-        </div>
-    );
+    return <div className="bg-slate-900">Landing</div>;
 };
 
 export default Landing;

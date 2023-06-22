@@ -3,7 +3,7 @@ import userReducer from "./features/userSlice/userSlice";
 
 const store = configureStore({
     reducer: {
-        cards: userReducer,
+        user: userReducer,
     },
 });
 
