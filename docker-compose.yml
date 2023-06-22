@@ -1,0 +1,39 @@
+version: "2"
+services:
+    mysql:
+        image: mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: secretpass
+            MYSQL_DATABASE: movies_app
+            MYSQL_USER: admin
+            MYSQL_PASSWORD: 1234
+        ports:
+            - "3306:3306"
+        # restart: always
+    api:
+        #image: nahuelcallalli/dogapp-api:v2
+        container_name: api
+        build: ./api/
+        command: npm start
+        ports:
+            - "3001:3001"
+            #portPC:portDocker
+        depends_on:
+            - mysql
+        environment:
+            DB_HOST: mysql
+            DB_PORT: 3306
+            DB_USER: admin
+            DB_PASSWORD: 1234
+            DB_NAME: movies_app
+        # restart: always
+    client:
+        #image: nahuelcallalli/dogapp-client
+        container_name: client
+        build: ./client/
+        command: npm run dev
+        ports:
+            - "3000:3000"
+        depends_on:
+            - api
+        # restart: always

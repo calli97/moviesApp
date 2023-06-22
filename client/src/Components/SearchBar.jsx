@@ -12,6 +12,7 @@ const SearchBar = ({ handleSearch, handleShowAll }) => {
     };
 
     const handleShowAllClick = () => {
+        setSearchTerm("");
         handleShowAll();
     };
 

@@ -32,4 +32,6 @@ function main() {
         }
     });
 }
-main();
+setTimeout(() => {
+    main();
+}, 60000);

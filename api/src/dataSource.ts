@@ -7,6 +7,8 @@ dotenv.config();
 
 const { DB_HOST, DB_USER, DB_PASSWORD, DB_PORT, DB_NAME } = process.env;
 
+console.log(DB_HOST, DB_USER, DB_PORT, DB_NAME, DB_PASSWORD);
+
 export const AppDataSource = new DataSource({
     type: "mysql",
     host: DB_HOST,

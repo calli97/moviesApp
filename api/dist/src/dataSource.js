@@ -11,6 +11,7 @@ const Movie_1 = __importDefault(require("./entity/Movie"));
 const Role_1 = __importDefault(require("./entity/Role"));
 dotenv_1.default.config();
 const { DB_HOST, DB_USER, DB_PASSWORD, DB_PORT, DB_NAME } = process.env;
+console.log(DB_HOST, DB_USER, DB_PORT, DB_NAME, DB_PASSWORD);
 exports.AppDataSource = new typeorm_1.DataSource({
     type: "mysql",
     host: DB_HOST,

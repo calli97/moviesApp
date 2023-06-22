@@ -11,16 +11,10 @@ const Navbar = () => {
                 <div className="relative flex items-center justify-between h-16">
                     <div className="flex items-center justify-start">
                         <span className="text-white font-semibold text-lg">
-                            Logo
+                            <NavLink to="/">MovieApp</NavLink>
                         </span>
                     </div>
                     <div className="flex items-center">
-                        <NavLink
-                            to="/"
-                            className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                        >
-                            Landing
-                        </NavLink>
                         <NavLink
                             to="/movies"
                             className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
